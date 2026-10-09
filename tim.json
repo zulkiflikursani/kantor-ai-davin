@@ -1,1 +1,62 @@
-{"divisi":[]}
+{
+  "_catatan": "Susunan umum sementara (belum ada project). Ganti dengan: node server/penyusun.js <project> --timpa",
+  "project": "",
+  "divisi": [
+    {
+      "id": "penulisan",
+      "nama": "Penulisan",
+      "folder": [],
+      "karyawan": [
+        {
+          "id": "penulis",
+          "nama": "Sari",
+          "peran": "Penulis",
+          "aturan": { "ekstensi": [".md", ".mdx", ".txt", ".rst", ".doc", ".docx"] }
+        }
+      ]
+    },
+    {
+      "id": "programming",
+      "nama": "Programming",
+      "folder": [],
+      "karyawan": [
+        {
+          "id": "programmer",
+          "nama": "Budi",
+          "peran": "Programmer",
+          "aturan": {
+            "ekstensi": [".js", ".mjs", ".cjs", ".ts", ".jsx", ".tsx", ".py", ".go", ".rs", ".java", ".kt",
+              ".php", ".rb", ".c", ".h", ".cpp", ".cs", ".swift", ".html", ".css", ".scss", ".vue",
+              ".svelte", ".sql", ".sh", ".json", ".yml", ".yaml", ".toml", ".ipynb"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "operasional",
+      "nama": "Operasional",
+      "folder": [],
+      "karyawan": [
+        {
+          "id": "ops",
+          "nama": "Rina",
+          "peran": "Perintah & deploy",
+          "aturan": { "alat": ["Bash", "exec"] }
+        }
+      ]
+    },
+    {
+      "id": "riset",
+      "nama": "Riset",
+      "folder": [],
+      "karyawan": [
+        {
+          "id": "riset",
+          "nama": "Dimas",
+          "peran": "Riset web",
+          "aturan": { "alat": ["WebFetch", "WebSearch", "fetch", "web_search"] }
+        }
+      ]
+    }
+  ]
+}
