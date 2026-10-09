@@ -10,6 +10,10 @@ const { cocokkan, kerja, MENGUBAH } = require('./cocok');
 const arg = (n, def) => { const i = process.argv.indexOf('--' + n); return i > -1 ? process.argv[i + 1] : def; };
 const AKAR = path.resolve(__dirname, '..');
 const PROJECT = path.resolve(arg('project', process.cwd()));
+if (!fs.existsSync(PROJECT) || !fs.statSync(PROJECT).isDirectory()) {
+  console.error(`Folder project tidak ditemukan: ${PROJECT}\nGanti dengan folder yang benar-benar ada, misalnya: ~/Desktop/PROJECT/proyek-saya`);
+  process.exit(1);
+}
 const PORT = Number(arg('port', 4321));
 const HOST = '127.0.0.1';
 const TIM_FILE = path.resolve(arg('tim', path.join(AKAR, 'tim.json')));

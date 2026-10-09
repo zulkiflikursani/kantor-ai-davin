@@ -6,6 +6,10 @@ const fs = require('fs');
 const path = require('path');
 
 const proj = path.resolve(process.argv[2] || process.cwd());
+if (!fs.existsSync(proj) || !fs.statSync(proj).isDirectory()) {
+  console.error(`Folder project tidak ditemukan: ${proj}\nGanti dengan folder yang benar-benar ada, misalnya: ~/Desktop/PROJECT/proyek-saya`);
+  process.exit(1);
+}
 const i = process.argv.indexOf('--keluar');
 const keluar = path.resolve(i > -1 ? process.argv[i + 1] : path.join(__dirname, '..', 'tim.json'));
 const ABAI = new Set(['node_modules', '.git', '.claude', '.devin', '.kantor-ai', 'dist', 'build', '.next', '.cache', 'vendor', '__pycache__', '.venv', 'venv', 'coverage']);

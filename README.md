@@ -5,6 +5,8 @@ Semua yang tampil berasal dari catatan hook. Tidak ada aksi berarti kantor diam.
 
 ## Pakai
 
+`/path/ke/project` hanya contoh: ganti dengan folder project yang benar-benar ada (misalnya `~/Desktop/PROJECT/proyek-saya`).
+
 ```bash
 # 1. Pasang hook ke project (salinan lama .claude/settings.local.json disimpan dulu)
 node hook/pasang.js /path/ke/project

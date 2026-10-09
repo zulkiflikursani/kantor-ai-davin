@@ -6,6 +6,10 @@ const fs = require('fs');
 const path = require('path');
 
 const proj = path.resolve(process.argv[2] || process.cwd());
+if (!fs.existsSync(proj) || !fs.statSync(proj).isDirectory()) {
+  console.error(`Folder project tidak ditemukan: ${proj}\nGanti dengan folder yang benar-benar ada, misalnya: ~/Desktop/PROJECT/proyek-saya`);
+  process.exit(1);
+}
 const hookPath = path.join(__dirname, 'catat.js');
 // Path node absolut: Devin CLI/Desktop dan Claude Code tidak selalu punya PATH
 // yang sama dengan terminal (mis. node dari nvm), dan hook yang gagal dilewati diam-diam.
