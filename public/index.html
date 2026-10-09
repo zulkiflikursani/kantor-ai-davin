@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kantor AI</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="importmap">{ "imports": { "three": "/vendor/three.module.js" } }</script>
+</head>
+<body>
+  <main id="kantor">
+    <canvas id="kanvas"></canvas>
+    <div id="label"></div>
+    <div id="petunjuk">seret untuk memutar · scroll untuk zoom</div>
+  </main>
+  <aside id="panel">
+    <header>
+      <div class="judul">Kantor AI <span id="nama-project"></span></div>
+      <div id="status"><span class="titik"></span><span id="status-teks">Menghubungkan…</span></div>
+    </header>
+    <section>
+      <h2>Aktivitas karyawan</h2>
+      <ol id="aktivitas"><li class="kosong">Belum ada aksi tercatat.</li></ol>
+    </section>
+    <section>
+      <h2>Laporan Manager</h2>
+      <ol id="laporan"><li class="kosong">Belum ada laporan. Laporan muncul setiap kali agent selesai menjawab.</li></ol>
+    </section>
+  </aside>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

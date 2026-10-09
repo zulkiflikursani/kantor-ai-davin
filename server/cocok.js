@@ -29,6 +29,7 @@ function cocokAturan(a, aksi) {
   const nama = kecil(file.split('/').pop());
   if (a.alat && a.alat.includes(aksi.alat)) return true;
   if (!file) return false;
+  if (a.akar && !file.includes('/') && !aksi.luar) return true;
   if (a.namaMengandung && a.namaMengandung.some((k) => nama.includes(kecil(k)))) return true;
   if (a.ekstensi && a.ekstensi.some((e) => nama.endsWith(kecil(e)))) return true;
   if (a.folder && a.folder.some((f) => awalan(file, f))) return true;
