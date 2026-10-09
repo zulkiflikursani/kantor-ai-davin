@@ -1,0 +1,2 @@
+{"divisi":[{"id":"konten","nama":"Konten","folder":["konten"],"karyawan":[{"id":"sari","nama":"Sari","aturan":{"namaMengandung":["ide"]}},{"id":"budi","nama":"Budi","aturan":{}}]},
+{"id":"pemasaran","nama":"Pemasaran","folder":["iklan"],"karyawan":[{"id":"rina","nama":"Rina","aturan":{"namaMengandung":["iklan"]}}]}]}

@@ -7,7 +7,10 @@ const path = require('path');
 
 const proj = path.resolve(process.argv[2] || process.cwd());
 const hookPath = path.join(__dirname, 'catat.js');
-const perintah = `node ${JSON.stringify(hookPath)}`;
+// Path node absolut: Devin CLI/Desktop dan Claude Code tidak selalu punya PATH
+// yang sama dengan terminal (mis. node dari nvm), dan hook yang gagal dilewati diam-diam.
+const perintah = `${JSON.stringify(process.execPath)} ${JSON.stringify(hookPath)}`;
+const lama = (c) => /catat\.js"?$/.test(c || '') && c !== perintah;
 const dir = path.join(proj, '.claude');
 const file = path.join(dir, 'settings.local.json');
 
@@ -18,7 +21,13 @@ cfg.hooks = cfg.hooks || {};
 let berubah = false;
 const entri = { type: 'command', command: perintah, timeout: 5 };
 for (const ev of ['PreToolUse', 'Stop', 'UserPromptSubmit']) {
-  const daftar = (cfg.hooks[ev] = cfg.hooks[ev] || []);
+  let daftar = (cfg.hooks[ev] = cfg.hooks[ev] || []);
+  // Buang entri Kantor AI versi lama (perintah berbeda) supaya tidak tercatat dua kali.
+  const sebelum = JSON.stringify(daftar);
+  daftar = cfg.hooks[ev] = daftar
+    .map((g) => ({ ...g, hooks: (g.hooks || []).filter((h) => !(h.command && h.command.includes(hookPath) && lama(h.command))) }))
+    .filter((g) => g.hooks.length);
+  if (JSON.stringify(daftar) !== sebelum) berubah = true;
   const sudahAda = daftar.some((g) => (g.hooks || []).some((h) => h.command === perintah));
   if (sudahAda) continue;
   berubah = true;
