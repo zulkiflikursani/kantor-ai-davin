@@ -111,7 +111,7 @@ function bangun(tim) {
       const kiri = kotak(0.06, 0.7, dalam, dinding); kiri.position.set(-r.w / 2, 0.35, 0);
       const kanan = kotak(0.06, 0.7, dalam, dinding); kanan.position.set(r.w / 2, 0.35, 0);
       g.add(lantai, belakang, kiri, kanan);
-      const papan = new THREE.Object3D(); papan.position.set(0, 0.9, -dalam / 2); g.add(papan);
+      const papan = new THREE.Object3D(); papan.position.set(-r.w / 2 + 0.6, 0.85, -dalam / 2); g.add(papan);
       tambahLabel(r.d.nama || r.d.id, papan, 0, 'ruang');
 
       (r.d.karyawan || []).forEach((k, j) => {
@@ -153,7 +153,7 @@ function bangun(tim) {
   const kotakDunia = new THREE.Box3().setFromObject(dunia);
   kotakDunia.getCenter(pusat);
   const ukuran = kotakDunia.getSize(new THREE.Vector3());
-  orbit.r = Math.max(10, Math.max(ukuran.x, ukuran.z) * 1.15);
+  orbit.r = Math.max(10, Math.max(ukuran.x, ukuran.z) * 1.35);
   matahari.position.set(pusat.x + 8, 20, pusat.z + 10);
   matahari.target.position.copy(pusat);
   const s = Math.max(ukuran.x, ukuran.z);
