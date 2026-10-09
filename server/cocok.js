@@ -5,8 +5,11 @@ const KERJA = {
   Read: 'baca', Glob: 'cari file', Grep: 'cari isi', LS: 'lihat folder',
   Bash: 'jalanin perintah', WebFetch: 'riset web', WebSearch: 'riset web',
   Task: 'delegasi', TodoWrite: 'susun rencana',
+  // nama alat Devin CLI / Desktop
+  edit: 'ngedit', write: 'nulis', read: 'baca', grep: 'cari isi', glob: 'cari file',
+  exec: 'jalanin perintah', fetch: 'riset web', web_search: 'riset web',
 };
-const MENGUBAH = new Set(['Write', 'Edit', 'MultiEdit', 'NotebookEdit']);
+const MENGUBAH = new Set(['Write', 'Edit', 'MultiEdit', 'NotebookEdit', 'edit', 'write']);
 
 function kerja(alat) {
   if (KERJA[alat]) return KERJA[alat];

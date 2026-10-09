@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Hook Claude Code untuk Kantor AI.
+// Hook untuk Kantor AI. Format hook Claude Code, yang juga dibaca Devin CLI / Devin Desktop.
 // Hanya mencatat: waktu, jenis event, nama alat, path file yang disentuh, dan
 // kategori aksi eksternal. Tidak pernah mencatat isi file, isi perintah, atau prompt.
 // Selalu keluar dengan kode 0 dan tanpa output agar tidak mengganggu Claude Code.
@@ -29,7 +29,7 @@ function dalamFolder(proj, p) {
 
 function olah(raw) {
   const d = JSON.parse(raw || '{}');
-  const proj = process.env.CLAUDE_PROJECT_DIR || d.cwd || process.cwd();
+  const proj = process.env.CLAUDE_PROJECT_DIR || process.env.DEVIN_PROJECT_DIR || d.cwd || process.cwd();
   const ev = d.hook_event_name || 'tidak_diketahui';
   const baris = { t: new Date().toISOString(), ev, sesi: d.session_id ? String(d.session_id).slice(0, 8) : undefined };
 
@@ -37,18 +37,19 @@ function olah(raw) {
     const alat = String(d.tool_name || '');
     const inp = d.tool_input || {};
     baris.alat = alat;
-    const p = inp.file_path || inp.notebook_path || (['Glob', 'Grep', 'LS'].includes(alat) ? inp.path : undefined);
+    const cari = ['Glob', 'Grep', 'LS', 'glob', 'grep', 'ls'].includes(alat);
+    const p = inp.file_path || inp.notebook_path || inp.target_file || inp.filePath || (typeof inp.path === 'string' && (cari || /\.[a-z0-9]+$/i.test(inp.path)) ? inp.path : undefined);
     if (typeof p === 'string' && p) {
       const abs = path.resolve(d.cwd || proj, p);
       if (dalamFolder(proj, abs)) baris.file = path.relative(proj, abs).split(path.sep).join('/') || '.';
       else { baris.file = abs; baris.luar = true; }
     }
-    if (alat === 'Bash' && typeof inp.command === 'string') {
+    if ((alat === 'Bash' || alat === 'exec') && typeof inp.command === 'string') {
       for (const [kat, re] of EKSTERNAL_BASH) if (re.test(inp.command)) { baris.eksternal = kat; break; }
     } else if (alat.startsWith('mcp__') && EKSTERNAL_MCP.test(alat.split('__').pop())) {
       baris.eksternal = 'aksi lewat ' + alat.split('__')[1];
     }
-    if (baris.luar && ['Write', 'Edit', 'MultiEdit', 'NotebookEdit'].includes(alat)) baris.eksternal = baris.eksternal || 'ubah file di luar folder';
+    if (baris.luar && ['Write', 'Edit', 'MultiEdit', 'NotebookEdit', 'edit', 'write'].includes(alat)) baris.eksternal = baris.eksternal || 'ubah file di luar folder';
   }
 
   const dir = path.join(proj, '.kantor-ai');
